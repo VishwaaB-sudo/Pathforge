@@ -4,46 +4,34 @@ import { useEffect, useState } from 'react';
 // (which lives under `pathforge_v4`).
 const KEY = 'pathforge_theme';
 
+// AMOLED dark is the product's default look, so "no saved choice" resolves to
+// dark rather than to whatever the OS happens to prefer.
 const stored = () => {
   try {
     const v = localStorage.getItem(KEY);
-    return v === 'light' || v === 'dark' ? v : null;
+    return v === 'light' || v === 'dark' ? v : 'dark';
   } catch {
-    return null;
+    return 'dark';
   }
 };
 
-const prefersDark = () =>
-  typeof window !== 'undefined' &&
-  window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 
-/** Light / dark switch. Null means "follow the system". */
+
+/** Light / dark switch. Defaults to AMOLED dark. */
 export default function ThemeToggle() {
   const [choice, setChoice] = useState(stored);
-  const [systemDark, setSystemDark] = useState(prefersDark);
-
-  // track the OS setting while the user is on "follow system"
-  useEffect(() => {
-    const mq = window.matchMedia?.('(prefers-color-scheme: dark)');
-    if (!mq) return;
-    const onChange = (e) => setSystemDark(e.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
 
   useEffect(() => {
     const el = document.documentElement;
-    if (choice) el.dataset.theme = choice;
-    else delete el.dataset.theme;
+    el.dataset.theme = choice;
     try {
-      if (choice) localStorage.setItem(KEY, choice);
-      else localStorage.removeItem(KEY);
+      localStorage.setItem(KEY, choice);
     } catch {
       /* storage unavailable — theme still applies for this session */
     }
   }, [choice]);
 
-  const isDark = choice ? choice === 'dark' : systemDark;
+  const isDark = choice === 'dark';
   const label = isDark ? 'Switch to light theme' : 'Switch to dark theme';
 
   return (

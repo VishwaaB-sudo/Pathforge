@@ -9,14 +9,24 @@
 
 /* ---------- self-hosted variable typeface (no CDN, works offline) ---------- */
 @font-face {
-  font-family: 'InterVar';
+  font-family: 'RalewayVar';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('../assets/fonts/inter-latin-wght-normal.woff2') format('woff2');
+  src: url('../assets/fonts/raleway-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
     U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
     U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'RalewayVar';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../assets/fonts/raleway-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 :root {
@@ -27,10 +37,10 @@
   --fs-md: 16px; /* subsection title */
   --fs-lg: 18px;
   --fs-xl: 20px; /* section heading */
-  --fs-2xl: 28px; /* page title (desktop) */
-  --fs-metric: 24px; /* key metric */
-  --lh-tight: 1.25;
-  --lh: 1.5;
+  --fs-2xl: 29px; /* page title (desktop) */
+  --fs-metric: 25px; /* key metric */
+  --lh-tight: 1.28;
+  --lh: 1.55;
   --lh-loose: 1.7;
 
   /* ---- space scale (8px system) ---- */
@@ -45,38 +55,40 @@
   --s9: 48px;
   --s10: 64px;
 
-  /* ---- neutral surfaces ---- */
-  --bg: #f8fafc; /* canvas */
-  --s: #ffffff; /* default surface */
-  --s-2: #f8fafc; /* subtle background */
-  --s-3: #f1f5f9; /* hover / inset */
-  --t: #0f172a; /* primary text */
-  --t-2: #334155;
-  --m: #475569; /* secondary text */
-  --f: #64748b; /* muted text */
-  --b: #e2e8f0; /* subtle border */
-  --b-2: #f1f5f9; /* hairline */
-  --b-strong: #cbd5e1; /* strong border */
+  /* ---- neutral surfaces (AMOLED: true black, greys carry no blue cast) ---- */
+  --bg: #000000; /* canvas — pure black, pixels fully off on OLED */
+  --s: #0a0a0a; /* default surface */
+  --s-2: #050505; /* subtle background */
+  --s-3: #151515; /* hover / inset */
+  --t: #ffffff; /* primary text */
+  --t-2: #ededed;
+  --m: #a3a3a3; /* secondary text */
+  --f: #808080; /* muted text — lifted to clear 4.5:1 on surface, canvas and hover inset */
+  --b: #1f1f1f; /* subtle border */
+  --b-2: #141414; /* hairline */
+  --b-strong: #333333; /* strong border */
 
-  /* ---- one restrained accent ---- */
-  --a: #0f766e; /* primary teal */
-  --a-2: #115e59; /* hover */
-  --a-soft: #f0fdfa; /* primary soft */
-  --al: #f0fdfa;
+  /* ---- one restrained accent (teal, brightened for pure black) ---- */
+  --a: #2dd4bf; /* primary */
+  --a-2: #5eead4; /* hover */
+  --a-soft: #0a2622; /* primary soft */
+  --al: #0a2622;
+  --on-a: #022c26; /* text/icon colour ON an accent fill (never white) */
 
   /* ---- semantic status ---- */
-  --ok: #15803d;
-  --ok-bg: #f0fdf4;
-  --warn: #b45309;
-  --warn-bg: #fffbeb;
-  --err: #b91c1c;
-  --err-bg: #fef2f2;
-  --info: #0f766e;
-  --info-bg: #f0fdfa;
-  --violet: #5b4bc4;
-  --violet-bg: #f5f4ff;
-  --grey: #64748b;
-  --grey-bg: #f1f5f9;
+  --ok: #4ade80;
+  --ok-bg: #04180d;
+  --warn: #fbbf24;
+  --warn-bg: #221803;
+  --err: #f87171;
+  --err-bg: #2a0c0c;
+  --info: #2dd4bf;
+  --info-bg: #0a2622;
+  --violet: #a5b4fc;
+  --violet-bg: #191731;
+  --grey: #a3a3a3;
+  --grey-bg: #141414;
+  --on-c: #0a0a0a; /* text ON a semantic colour fill */
 
   /* convenience aliases used by existing components */
   --g: var(--ok);
@@ -93,10 +105,10 @@
   --r-sm: 6px;
   --r-md: 8px;
   --r-lg: 12px; /* large — important elevated panels only */
-  --sh-1: 0 1px 2px rgba(15, 23, 42, 0.04);
-  --sh-2: 0 12px 28px -16px rgba(15, 23, 42, 0.2);
-  --sh-pop: 0 10px 28px -12px rgba(15, 23, 42, 0.24);
-  --ring: 0 0 0 3px rgba(15, 118, 110, 0.2);
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --sh-2: 0 12px 28px -16px rgba(0, 0, 0, 0.8);
+  --sh-pop: 0 10px 28px -12px rgba(0, 0, 0, 0.85);
+  --ring: 0 0 0 3px rgba(45, 212, 191, 0.35);
 
   /* ---- layout ---- */
   --side-w: 232px;
@@ -107,83 +119,50 @@
   --fast: 140ms;
   --med: 220ms;
 
-  color-scheme: light;
+  color-scheme: dark;
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* ---------- dark theme: explicit choice ---------- */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']):not([data-theme='dark']) {
-    color-scheme: dark;
-    --bg: #0b1120;
-    --s: #111827;
-    --s-2: #0f172a;
-    --s-3: #1e293b;
-    --t: #f1f5f9;
-    --t-2: #cbd5e1;
-    --m: #94a3b8;
-    --f: #7c8ba3;
-    --b: #1e293b;
-    --b-2: #172033;
-    --b-strong: #334155;
-    --a: #5eead4;
-    --a-2: #99f6e4;
-    --a-soft: #10312f;
-    --al: #10312f;
-    --ok: #4ade80;
-    --ok-bg: #052e16;
-    --warn: #fbbf24;
-    --warn-bg: #3b2606;
-    --err: #f87171;
-    --err-bg: #3f1212;
-    --info: #5eead4;
-    --info-bg: #10312f;
-    --violet: #a5b4fc;
-    --violet-bg: #1e1b4b;
-    --grey: #94a3b8;
-    --grey-bg: #1e293b;
-    --sh-1: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --sh-2: 0 12px 28px -16px rgba(0, 0, 0, 0.62);
-    --sh-pop: 0 10px 28px -12px rgba(0, 0, 0, 0.68);
-    --ring: 0 0 0 3px rgba(94, 234, 212, 0.3);
-  }
-}
-
-:root[data-theme='dark'] {
-  color-scheme: dark;
-  --bg: #0b1120;
-  --s: #111827;
-  --s-2: #0f172a;
-  --s-3: #1e293b;
-  --t: #f1f5f9;
-  --t-2: #cbd5e1;
-  --m: #94a3b8;
-  --f: #7c8ba3;
-  --b: #1e293b;
-  --b-2: #172033;
-  --b-strong: #334155;
-  --a: #5eead4;
-  --a-2: #99f6e4;
-  --a-soft: #10312f;
-  --al: #10312f;
-  --ok: #4ade80;
-  --ok-bg: #052e16;
-  --warn: #fbbf24;
-  --warn-bg: #3b2606;
-  --err: #f87171;
-  --err-bg: #3f1212;
-  --info: #5eead4;
-  --info-bg: #10312f;
-  --violet: #a5b4fc;
-  --violet-bg: #1e1b4b;
-  --grey: #94a3b8;
-  --grey-bg: #1e293b;
-  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --sh-2: 0 12px 28px -16px rgba(0, 0, 0, 0.62);
-  --sh-pop: 0 10px 28px -12px rgba(0, 0, 0, 0.68);
-  --ring: 0 0 0 3px rgba(94, 234, 212, 0.3);
+/* ---------- light theme: opt-in via the toggle ----------
+   The default (AMOLED dark) lives in :root above, so there is no
+   prefers-color-scheme query — dark is the product's default look. */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f8fafc; /* canvas */
+  --s: #ffffff; /* default surface */
+  --s-2: #f8fafc; /* subtle background */
+  --s-3: #f1f5f9; /* hover / inset */
+  --t: #0f172a; /* primary text */
+  --t-2: #334155;
+  --m: #475569; /* secondary text */
+  --f: #64748b; /* muted text */
+  --b: #e2e8f0; /* subtle border */
+  --b-2: #f1f5f9; /* hairline */
+  --b-strong: #cbd5e1; /* strong border */
+  --a: #0f766e; /* primary teal */
+  --a-2: #115e59; /* hover */
+  --a-soft: #f0fdfa; /* primary soft */
+  --al: #f0fdfa;
+  --on-a: #ffffff; /* white text works on a dark teal fill */
+  --ok: #15803d;
+  --ok-bg: #f0fdf4;
+  --warn: #b45309;
+  --warn-bg: #fffbeb;
+  --err: #b91c1c;
+  --err-bg: #fef2f2;
+  --info: #0f766e;
+  --info-bg: #f0fdfa;
+  --violet: #5b4bc4;
+  --violet-bg: #f5f4ff;
+  --grey: #64748b;
+  --grey-bg: #f1f5f9;
+  --on-c: #ffffff;
+  --sh-1: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --sh-2: 0 12px 28px -16px rgba(15, 23, 42, 0.2);
+  --sh-pop: 0 10px 28px -12px rgba(15, 23, 42, 0.24);
+  --ring: 0 0 0 3px rgba(15, 118, 110, 0.2);
 }
 
 /* ---------------- reset / base ---------------- */
@@ -202,13 +181,13 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--t);
-  font-family: 'InterVar', Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: 'RalewayVar', Raleway, system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: var(--fs-base);
   line-height: var(--lh);
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'cv11' 1, 'ss01' 1;
+  font-feature-settings: 'kern' 1, 'liga' 1;
   transition:
     background-color var(--med) var(--ease),
     color var(--med) var(--ease);
@@ -225,19 +204,19 @@ strong {
 h1 {
   font-size: var(--fs-2xl);
   line-height: var(--lh-tight);
-  letter-spacing: -0.024em;
-  font-weight: 650;
+  letter-spacing: -0.012em;
+  font-weight: 700;
   margin: 0;
 }
 h3 {
   font-size: var(--fs-md);
-  letter-spacing: -0.011em;
-  font-weight: 620;
+  letter-spacing: -0.005em;
+  font-weight: 600;
   margin: 0 0 var(--s2);
 }
 h4 {
   font-size: var(--fs-base);
-  letter-spacing: -0.006em;
+  letter-spacing: -0.002em;
   margin: var(--s5) 0 var(--s1);
 }
 p {
@@ -308,9 +287,9 @@ aside {
   align-items: center;
   gap: var(--s2);
   padding: var(--s1) var(--s2);
-  font-weight: 650;
+  font-weight: 700;
   font-size: var(--fs-md);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: var(--t);
 }
 .brand-mark {
@@ -321,7 +300,7 @@ aside {
   display: grid;
   place-items: center;
   background: var(--a);
-  color: #fff;
+  color: var(--on-a);
 }
 .brand-text {
   display: flex;
@@ -330,7 +309,7 @@ aside {
 }
 .brand-text small {
   font-size: var(--fs-xs);
-  font-weight: 550;
+  font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--f);
   text-transform: uppercase;
@@ -345,7 +324,7 @@ aside {
 .gl {
   font-size: var(--fs-xs);
   letter-spacing: 0.09em;
-  font-weight: 650;
+  font-weight: 700;
   color: var(--f);
   text-transform: uppercase;
   padding: 0 var(--s2);
@@ -409,7 +388,7 @@ aside nav {
   place-items: center;
   background: var(--a-soft);
   color: var(--a);
-  font-weight: 650;
+  font-weight: 700;
   font-size: var(--fs-sm);
 }
 .side-user-meta {
@@ -475,7 +454,7 @@ aside nav {
 }
 .crumb-here {
   color: var(--t);
-  font-weight: 550;
+  font-weight: 600;
 }
 .crs {
   width: auto;
@@ -488,7 +467,7 @@ aside nav {
 }
 .role-chip {
   font-size: var(--fs-xs);
-  font-weight: 650;
+  font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--m);
@@ -506,7 +485,7 @@ aside nav {
   color: var(--a);
   display: grid;
   place-items: center;
-  font-weight: 650;
+  font-weight: 700;
   font-size: var(--fs-sm);
 }
 .who {
@@ -608,7 +587,7 @@ aside nav {
 .section-head h3 {
   margin: 0;
   font-size: var(--fs-xl);
-  letter-spacing: -0.016em;
+  letter-spacing: -0.004em;
 }
 .section-head .sh-meta {
   font-size: var(--fs-sm);
@@ -649,8 +628,8 @@ aside nav {
 .hero h2 {
   margin: 6px 0 6px;
   font-size: var(--fs-xl);
-  font-weight: 650;
-  letter-spacing: -0.022em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   line-height: var(--lh-tight);
 }
 .hero .bar {
@@ -660,7 +639,7 @@ aside nav {
 .hero .eyebrow {
   font-size: var(--fs-xs);
   letter-spacing: 0.1em;
-  font-weight: 650;
+  font-weight: 700;
   text-transform: uppercase;
   color: var(--a);
 }
@@ -734,8 +713,8 @@ aside nav {
 }
 .met b {
   font-size: var(--fs-metric);
-  font-weight: 650;
-  letter-spacing: -0.022em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   display: block;
   margin-top: 2px;
   line-height: 1.15;
@@ -773,7 +752,7 @@ aside nav {
 .btn {
   font: inherit;
   font-size: var(--fs-sm);
-  font-weight: 550;
+  font-weight: 600;
   padding: 8px 14px;
   border: 1px solid var(--b);
   background: var(--s);
@@ -801,7 +780,7 @@ aside nav {
 }
 .btn.p {
   background: var(--a);
-  color: #fff;
+  color: var(--on-a);
   border-color: var(--a);
   box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
 }
@@ -823,7 +802,7 @@ aside nav {
 .btn.danger {
   background: var(--err);
   border-color: var(--err);
-  color: #fff;
+  color: var(--on-c);
 }
 .btn.danger:hover {
   background: color-mix(in srgb, var(--err) 88%, #000);
@@ -932,7 +911,7 @@ input[type='radio'] {
   accent-color: var(--a);
 }
 label {
-  font-weight: 550;
+  font-weight: 600;
   font-size: var(--fs-sm);
   display: inline-block;
 }
@@ -1004,7 +983,7 @@ pre {
 .demo {
   font-size: var(--fs-xs);
   letter-spacing: 0.06em;
-  font-weight: 650;
+  font-weight: 700;
   border: 1px solid color-mix(in srgb, var(--warn) 40%, var(--b));
   color: var(--warn);
   background: var(--warn-bg);
@@ -1105,7 +1084,7 @@ th {
   background: var(--s-2);
   font-size: var(--fs-xs);
   color: var(--m);
-  font-weight: 650;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.045em;
   border-bottom: 1px solid var(--b);
@@ -1227,7 +1206,7 @@ td.h {
   opacity: 0.6;
 }
 .sn {
-  font-weight: 650;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--m);
   width: 34px;
@@ -1270,7 +1249,7 @@ td.h {
   padding: 9px var(--s3);
   font: inherit;
   font-size: var(--fs-sm);
-  font-weight: 550;
+  font-weight: 600;
   color: var(--m);
   cursor: pointer;
   min-height: 40px;
@@ -1285,7 +1264,7 @@ td.h {
 .tabs .on {
   color: var(--a);
   border-color: var(--a);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 /* ---------------- quiz ---------------- */
@@ -1326,7 +1305,7 @@ fieldset {
   display: grid;
   place-items: center;
   font-size: var(--fs-xs);
-  font-weight: 650;
+  font-weight: 700;
   background: var(--s-3);
   color: var(--m);
   border: 1px solid transparent;
@@ -1344,7 +1323,7 @@ fieldset {
 }
 .op:has(input:checked)::before {
   background: var(--a);
-  color: #fff;
+  color: var(--on-a);
 }
 .op:has(input:focus-visible) {
   outline: 2px solid var(--a);
@@ -1356,7 +1335,7 @@ fieldset {
 }
 .op.ok::before {
   background: var(--ok);
-  color: #fff;
+  color: var(--on-c);
 }
 .op.no {
   border-color: color-mix(in srgb, var(--err) 36%, var(--b));
@@ -1364,14 +1343,14 @@ fieldset {
 }
 .op.no::before {
   background: var(--err);
-  color: #fff;
+  color: var(--on-c);
 }
 .qt {
   font-size: var(--fs-md);
   font-weight: 600;
   margin-bottom: var(--s4);
   line-height: 1.45;
-  letter-spacing: -0.008em;
+  letter-spacing: -0.004em;
 }
 .ex {
   background: var(--a-soft);
@@ -1391,15 +1370,15 @@ fieldset {
 }
 .ba b {
   font-size: var(--fs-2xl);
-  font-weight: 650;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.012em;
   display: block;
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
 }
 .ba .mu {
   font-size: var(--fs-xs);
-  font-weight: 650;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -1481,7 +1460,7 @@ fieldset {
 .chip {
   display: inline-block;
   font-size: var(--fs-xs);
-  font-weight: 550;
+  font-weight: 600;
   color: var(--t);
   background: var(--s);
   border: 1px solid var(--b);
@@ -1584,7 +1563,7 @@ summary:hover {
   display: grid;
   place-items: center;
   padding: var(--s6);
-  background: var(--bg);
+  background: transparent;
 }
 .lg-split {
   width: 100%;
@@ -1601,10 +1580,10 @@ summary:hover {
   position: relative;
   padding: var(--s8) var(--s7);
   background:
-    radial-gradient(100% 135% at 100% 0%, color-mix(in srgb, var(--a) 18%, transparent) 0%, transparent 58%),
+    radial-gradient(105% 140% at 100% 0%, color-mix(in srgb, var(--a) 26%, transparent) 0%, transparent 60%),
     linear-gradient(165deg,
-      color-mix(in srgb, var(--a) 13%, var(--s)) 0%,
-      color-mix(in srgb, var(--a) 4%, var(--s)) 52%,
+      color-mix(in srgb, var(--a) 16%, var(--s)) 0%,
+      color-mix(in srgb, var(--a) 6%, var(--s)) 52%,
       var(--s) 100%);
   border-right: 1px solid var(--b);
   display: flex;
@@ -1615,9 +1594,9 @@ summary:hover {
   display: flex;
   align-items: center;
   gap: var(--s3);
-  font-weight: 650;
+  font-weight: 700;
   font-size: var(--fs-lg);
-  letter-spacing: -0.022em;
+  letter-spacing: -0.01em;
 }
 .lg-brandmark .brand-mark {
   width: 30px;
@@ -1626,8 +1605,8 @@ summary:hover {
 .lg-tagline {
   margin: var(--s7) 0 var(--s3);
   font-size: var(--fs-2xl);
-  font-weight: 650;
-  letter-spacing: -0.026em;
+  font-weight: 700;
+  letter-spacing: -0.012em;
   line-height: 1.22;
   max-width: 15em;
 }
@@ -1642,7 +1621,7 @@ summary:hover {
 .lg-journey-title {
   font-size: var(--fs-xs);
   letter-spacing: 0.1em;
-  font-weight: 650;
+  font-weight: 700;
   text-transform: uppercase;
   color: var(--f);
   margin-bottom: var(--s4);
@@ -1662,7 +1641,7 @@ summary:hover {
   gap: var(--s3);
   padding: 5px 0;
   font-size: var(--fs-sm);
-  font-weight: 550;
+  font-weight: 600;
   color: var(--m);
 }
 .lg-node i {
@@ -1721,7 +1700,7 @@ summary:hover {
   bottom: 21px;
   font: inherit;
   font-size: var(--fs-xs);
-  font-weight: 650;
+  font-weight: 700;
   color: var(--m);
   background: none;
   border: 0;
@@ -1769,7 +1748,7 @@ summary:hover {
 .tag {
   font-size: var(--fs-xs);
   letter-spacing: 0.14em;
-  font-weight: 650;
+  font-weight: 700;
   color: var(--a);
   margin: var(--s2) 0 var(--s5);
 }
@@ -1790,8 +1769,8 @@ summary:hover {
 }
 .passport-summary .n {
   font-size: var(--fs-2xl);
-  font-weight: 650;
-  letter-spacing: -0.028em;
+  font-weight: 700;
+  letter-spacing: -0.012em;
   line-height: 1.05;
   font-variant-numeric: tabular-nums;
 }
@@ -1826,7 +1805,7 @@ summary:hover {
   color: var(--f);
 }
 .delta {
-  font-weight: 650;
+  font-weight: 700;
   font-size: var(--fs-sm);
   font-variant-numeric: tabular-nums;
 }

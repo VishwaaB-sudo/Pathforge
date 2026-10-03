@@ -28,6 +28,10 @@ export default function App() {
 
   return (
     <div id="app" className={[open && 'open', collapsed && 'col'].filter(Boolean).join(' ')}>
+      <div className="bgfield" aria-hidden="true">
+        <i />
+        <b />
+      </div>
       {content}
       <div className="scrim" onClick={() => setOpen(false)} />
       <Toast />

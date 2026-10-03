@@ -10,19 +10,18 @@
   --sh-lift: 0 10px 24px -14px rgba(15, 23, 42, 0.22), 0 1px 2px rgba(15, 23, 42, 0.05);
   --a-line: color-mix(in srgb, var(--a) 28%, var(--b));
   --a-wash: color-mix(in srgb, var(--a) 7%, var(--s));
-  font-feature-settings: 'cv11', 'ss01', 'tnum' 0;
 }
 body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
 /* ---- typography: stronger hierarchy ---- */
-h1, h2, h3 { letter-spacing: -0.015em; }
-.page h1, .page-head h1 { font-weight: 700; letter-spacing: -0.022em; }
+h1, h2, h3 { letter-spacing: -0.002em; }
+.page h1, .page-head h1 { font-weight: 700; letter-spacing: -0.01em; }
 .section-head h3, .sec-head h3 {
-  font-size: var(--fs-md); font-weight: 650; color: var(--t);
+  font-size: var(--fs-md); font-weight: 700; color: var(--t);
 }
 .mu, .hint { color: var(--m); }
 .eyebrow {
-  font-size: 11px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--a);
 }
 .tnum, .met b, .hero b { font-variant-numeric: tabular-nums; }
@@ -43,18 +42,18 @@ a.card:hover, button.card:hover, .card.click:hover {
   position: relative; overflow: hidden; padding: var(--s7) var(--s7) var(--s6);
   border: 1px solid var(--a-line); border-radius: 14px;
   background:
-    radial-gradient(125% 155% at 6% -12%, color-mix(in srgb, var(--a) 15%, var(--s)) 0%, transparent 62%),
+    radial-gradient(125% 155% at 6% -12%, color-mix(in srgb, var(--a) 24%, transparent) 0%, transparent 64%),
     linear-gradient(140deg,
-      color-mix(in srgb, var(--a) 9%, var(--s)) 0%,
-      color-mix(in srgb, var(--a) 2%, var(--s)) 48%,
-      var(--s) 82%);
+      color-mix(in srgb, var(--a) 14%, var(--s)) 0%,
+      color-mix(in srgb, var(--a) 4%, var(--s)) 46%,
+      var(--s) 84%);
   box-shadow: var(--sh-lift);
 }
 .hero::before {            /* identity accent rail */
   content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--a);
 }
 .hero:hover { transform: none; }
-.hero h2 { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -0.02em; max-width: 34ch; }
+.hero h2 { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -0.01em; max-width: 34ch; }
 .hero .mu { font-size: var(--fs-base); max-width: 60ch; }
 .hero .btn.p { padding: 11px 20px; font-size: var(--fs-base); }
 .hero .btn.p .cta-arrow { transition: transform var(--fast) var(--ease); }
@@ -79,7 +78,7 @@ a.card:hover, button.card:hover, .card.click:hover {
   overflow: hidden;
 }
 .met .mu { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--f); }
-.met b { font-size: var(--fs-metric); font-weight: 700; letter-spacing: -0.02em; color: var(--t); }
+.met b { font-size: var(--fs-metric); font-weight: 700; letter-spacing: -0.01em; color: var(--t); }
 .mets:not(.strip) .met {
   border: 1px solid var(--b); border-radius: var(--r-lg); background: var(--s); box-shadow: var(--sh-1);
   transition: border-color var(--fast) var(--ease), box-shadow var(--med) var(--ease);
@@ -98,7 +97,7 @@ a.card:hover, button.card:hover, .card.click:hover {
   background: var(--s); border-right: 1px solid var(--b);
 }
 .brand { padding: var(--s5) var(--s5) var(--s4); gap: var(--s3); }
-.brand-text { font-weight: 700; letter-spacing: -0.02em; }
+.brand-text { font-weight: 700; letter-spacing: -0.01em; }
 .ni {
   position: relative; border-radius: var(--r-md); font-weight: 500; color: var(--m);
   transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
@@ -116,9 +115,16 @@ a.card:hover, button.card:hover, .card.click:hover {
 
 /* ---- topbar ---- */
 .top {
-  background: color-mix(in srgb, var(--s) 92%, transparent);
-  backdrop-filter: saturate(1.4) blur(6px);
+  background: color-mix(in srgb, var(--s) 88%, transparent);
+  /* Glass forces a full backdrop re-blur on every frame the field animates
+     behind it. On a near-black theme there is no hard detail for a blur to
+     soften, so it buys nothing — cancel it and let the field read straight
+     through. Light theme keeps the glass, where it behaves as expected. */
+  backdrop-filter: none;
   border-bottom: 1px solid var(--b);
+}
+:root[data-theme='light'] .top {
+  backdrop-filter: saturate(1.4) blur(6px);
 }
 .icon-btn { border-radius: var(--r-md); transition: background var(--fast) var(--ease), color var(--fast) var(--ease); }
 .icon-btn:hover { background: var(--s-3); }
@@ -130,22 +136,38 @@ a.card:hover, button.card:hover, .card.click:hover {
     box-shadow var(--fast) var(--ease), transform 80ms var(--ease);
 }
 .btn:active:not(:disabled) { transform: translateY(1px) scale(0.99); }
-.btn.p { box-shadow: 0 1px 2px rgba(15, 118, 110, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.14); }
-.btn.p:hover:not(:disabled) { box-shadow: 0 6px 14px -8px rgba(15, 118, 110, 0.7); }
+.btn.p {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--a) 100%, #fff 14%) 0%, var(--a) 55%, var(--a-2) 100%);
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--a) 34%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition: box-shadow var(--med) var(--ease), transform var(--fast) var(--ease),
+    filter var(--fast) var(--ease);
+}
+.btn.p:hover:not(:disabled) {
+  filter: brightness(1.08) saturate(1.05);
+  box-shadow:
+    0 8px 22px -8px color-mix(in srgb, var(--a) 70%, transparent),
+    0 2px 6px -2px color-mix(in srgb, var(--a) 40%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
+.btn.p:active:not(:disabled) { transform: translateY(0) scale(0.985); }
 .btn:focus-visible, .ni:focus-visible, .icon-btn:focus-visible, a:focus-visible { outline: none; box-shadow: var(--ring); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
 /* ---- tables ---- */
 table { border-collapse: separate; border-spacing: 0; width: 100%; }
 th {
-  font-size: 11px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--f); background: var(--s-2); border-bottom: 1px solid var(--b);
 }
 td { border-bottom: 1px solid var(--b-2); }
 tbody tr { transition: background var(--fast) var(--ease); }
 tbody tr:hover td { background: var(--s-2); }
 tbody tr:last-child td { border-bottom: 0; }
-td:first-child { font-weight: 550; color: var(--t); }
+td:first-child { font-weight: 600; color: var(--t); }
 
 /* ---- badges ---- */
 .tag, .chip { font-weight: 600; letter-spacing: 0.01em; }
@@ -167,12 +189,451 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { border-color
 .toast { animation: pf-rise var(--med) var(--ease) both; box-shadow: var(--sh-pop); }
 .dialog { animation: pf-pop var(--med) var(--ease) both; border-radius: 14px; }
 
+/* ============================================================
+   AMOLED — animated background field + motion
+   On true black, colour has to come from light, not paint.
+   Three slow, out-of-phase glows drift behind the whole app.
+   Transform-only animation, so it stays on the compositor.
+   ============================================================ */
+
+.bgfield {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--bg);
+}
+.bgfield::before,
+.bgfield::after,
+.bgfield > i {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 58vmax;
+  height: 58vmax;
+  border-radius: 50%;
+  /* No filter: blur() on purpose. Each blob is already a radial-gradient with a
+     smooth transparent falloff, so a blur costs frames and adds no softness.
+     Dropping a 90px kernel across a 58vmax layer is the cheapest large win here. */
+  will-change: transform;
+}
+
+/* Film grain. Smooth near-black gradients band visibly on OLED panels; a very
+   low-opacity noise layer dithers the banding away. Rasterised once by the
+   browser, so it costs nothing per frame. */
+.bgfield > b {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  /* screen, not overlay: overlay with a black backdrop returns black by
+     definition (2 * 0 * blend), so on an AMOLED canvas it would erase itself.
+     screen only ever lightens, which is exactly what dithering needs. */
+  mix-blend-mode: screen;
+}
+/* teal — the identity colour */
+.bgfield::before {
+  top: -22vmax;
+  left: -14vmax;
+  background: radial-gradient(circle, color-mix(in srgb, var(--a) 30%, transparent) 0%, transparent 70%);
+  animation: pf-drift-a 26s var(--ease) infinite alternate;
+}
+/* deep teal, counterweight low and right */
+.bgfield::after {
+  right: -20vmax;
+  bottom: -24vmax;
+  background: radial-gradient(circle, color-mix(in srgb, var(--a) 20%, transparent) 0%, transparent 70%);
+  animation: pf-drift-b 32s var(--ease) infinite alternate;
+}
+/* a single violet note keeps the field from reading monochrome */
+.bgfield > i {
+  top: 42%;
+  left: 46%;
+  width: 40vmax;
+  height: 40vmax;
+  background: radial-gradient(circle, color-mix(in srgb, var(--violet) 16%, transparent) 0%, transparent 70%);
+  animation: pf-drift-c 38s var(--ease) infinite alternate;
+}
+
+@keyframes pf-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(16vmax, 10vmax, 0) scale(1.14); }
+}
+@keyframes pf-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.08); }
+  to { transform: translate3d(-14vmax, -12vmax, 0) scale(0.94); }
+}
+@keyframes pf-drift-c {
+  from { transform: translate3d(-8vmax, 6vmax, 0) scale(0.9); }
+  to { transform: translate3d(10vmax, -8vmax, 0) scale(1.16); }
+}
+
+/* the light theme is a bright document — no glow field */
+:root[data-theme='light'] .bgfield { display: none; }
+
+/* ============================================================
+   Sign-in: split panel, reference layout
+   Mark on top, generated artwork centre, message + indicators
+   anchored to the bottom. Wider card, bigger radius, deeper
+   shadow — the proportions the reference composition relies on.
+   ============================================================ */
+
+.lg-split {
+  max-width: 1040px;
+  grid-template-columns: 0.95fr 1.05fr;
+  border-radius: 22px;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.75), 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.lg-form {
+  padding: var(--s9) var(--s8) var(--s8);
+}
+.lg-form h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+}
+.lg-form label {
+  font-weight: 600;
+}
+.lg-brand {
+  padding: var(--s7) var(--s7) var(--s7);
+}
+
+/* ---- generated artwork: layered accent gradients, no image asset ----
+   Three stacked layers cross-fade on slide change, so the panel shifts
+   colour smoothly instead of cutting. */
+.lg-art {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+  margin: var(--s5) 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--b);
+  isolation: isolate;
+}
+.lg-art-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 900ms var(--ease);
+}
+.lg-art-layer.on { opacity: 1; }
+
+.lg-art-layer span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.7;
+  will-change: transform;
+}
+.lg-art-layer:nth-child(1) span:nth-child(1) {
+  width: 120%;
+  height: 66%;
+  left: -30%;
+  top: 4%;
+  background: radial-gradient(closest-side, var(--a), transparent);
+  animation: lg-ridge 19s var(--ease) infinite alternate;
+}
+.lg-art-layer:nth-child(2) span:nth-child(1) {
+  width: 118%;
+  height: 62%;
+  left: -22%;
+  top: 2%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--a) 74%, var(--violet)), transparent);
+  animation: lg-ridge 23s var(--ease) infinite alternate-reverse;
+}
+.lg-art-layer:nth-child(3) span:nth-child(1) {
+  width: 116%;
+  height: 60%;
+  left: -12%;
+  top: 6%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--violet) 70%, var(--a)), transparent);
+  animation: lg-ridge 27s var(--ease) infinite alternate;
+}
+.lg-art-layer span:nth-child(2) {
+  width: 112%;
+  height: 58%;
+  left: -6%;
+  bottom: -6%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--a) 58%, transparent), transparent);
+  animation: lg-ridge 29s var(--ease) infinite alternate;
+}
+.lg-art-layer span:nth-child(3) {
+  width: 62%;
+  height: 52%;
+  right: -10%;
+  top: 14%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--violet) 48%, transparent), transparent);
+  opacity: 0.45;
+  animation: lg-ridge 34s var(--ease) infinite alternate-reverse;
+}
+@keyframes lg-ridge {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(8%, 6%, 0) scale(1.15); }
+}
+
+/* ---- line drawings on the artwork ---- */
+.lg-draw {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+.d-base { stroke: color-mix(in srgb, var(--t) 26%, transparent); stroke-width: 1.4; }
+.d-line { stroke: var(--t); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.d-arc { stroke: color-mix(in srgb, var(--t) 22%, transparent); stroke-width: 1.4; stroke-dasharray: 3 7; }
+.d-dot { fill: var(--t); stroke: none; }
+
+/* ---- rotating message + real tabs ---- */
+.lg-foot {
+  text-align: center;
+}
+.lg-rot {
+  position: relative;
+  height: 3.4em;
+}
+.lg-rot span {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 620ms var(--ease), transform 620ms var(--ease);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--t);
+}
+.lg-rot span.on { opacity: 1; transform: none; }
+
+.lg-dots {
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  margin-top: var(--s4);
+}
+.lg-dot {
+  width: 26px;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 99px;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--t) 22%, transparent);
+  transition: background var(--med) var(--ease), width var(--med) var(--ease);
+}
+.lg-dot:hover { background: color-mix(in srgb, var(--t) 45%, transparent); }
+.lg-dot.on { width: 40px; background: var(--t); }
+.lg-dot:focus-visible {
+  outline: 2px solid var(--a);
+  outline-offset: 3px;
+}
+
+/* ---- journey reads as a compact chip row now the panel carries art ---- */
+.lg-journey {
+  margin-top: var(--s6);
+  padding-top: 0;
+}
+.lg-nodes {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s4);
+}
+.lg-node {
+  padding: 0;
+  gap: var(--s2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  /* index.css marks the first node var(--t) to flag the start of the old
+     vertical timeline. In a chip row that reads as a rendering fault, so every
+     chip sits at the same weight. */
+  color: var(--f);
+  transition: color var(--med) var(--ease);
+}
+.lg-node::before { display: none; }
+.lg-node i {
+  width: 6px;
+  height: 6px;
+  border-width: 0;
+  background: var(--a);
+  opacity: 0.75;
+  transition: transform var(--med) var(--ease), opacity var(--med) var(--ease);
+}
+.lg-nodes:hover .lg-node { color: var(--m); }
+.lg-nodes:hover .lg-node i { opacity: 1; transform: scale(1.15); }
+
+/* ---- light theme: artwork needs a floor to sit on ---- */
+:root[data-theme='light'] .lg-art {
+  background: var(--s-3);
+  border-color: var(--b);
+}
+:root[data-theme='light'] .lg-art-layer span { opacity: 0.5; }
+:root[data-theme='light'] .lg-draw { opacity: 0.38; }
+:root[data-theme='light'] .lg-dot {
+  background: color-mix(in srgb, var(--t) 16%, transparent);
+}
+:root[data-theme='light'] .lg-dot.on { background: var(--t); }
+
+/* ============================================================
+   Sidebar brand block
+   "LEARN · APPLY · PROVE" was wrapping onto a second line and colliding
+   with the wordmark, so the header read as one cramped block. Scaled to
+   fit on a single line and given room to breathe.
+   ============================================================ */
+
+.brand {
+  padding: var(--s2) var(--s3) var(--s6);
+  gap: var(--s3);
+}
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  flex: none;
+}
+.brand-text {
+  min-width: 0;
+}
+.brand-text small {
+  /* 232px rail - 24px padding - 30px mark - 12px gap leaves ~166px.
+     At 11px with tighter tracking the line lands around 150px. */
+  font-size: 11px;
+  letter-spacing: 0.045em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+#app.col .brand-text small { display: none; }
+
+/* ============================================================
+   Smoothness + AMOLED surface craft
+   The details that separate "looks fine" from "feels fast".
+   ============================================================ */
+
+html { scroll-behavior: smooth; }
+
+/* Chrome serves a light scrollbar by default, which reads as a bug on a black
+   page. A slim thumb with no track is the least intrusive option that still
+   shows where you are in a long list. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--b-strong) transparent;
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--b-strong);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--m); }
+
+/* The sidebar scrolls rarely and its scrollbar lands as a hard bright rail
+   against the nav. Hide it — the list still scrolls, you just lose a
+   decorative element that was only getting in the way. */
+aside {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+aside::-webkit-scrollbar { width: 0; height: 0; }
+
+/* horizontal overflow on the sign-in page was painting a stray thumb under
+   the card; clip it without creating a scroll container (which would break
+   the sticky sidebar and topbar) */
+html { overflow-x: clip; }
+
+/* Default blue selection fights a teal-on-black palette. */
+::selection {
+  background: color-mix(in srgb, var(--a) 34%, transparent);
+  color: var(--t);
+}
+
+/* #0a0a0a on #000 is a 2.5% luminance step — cards need help separating from
+   a true-black canvas. A hairline along the top edge reads as light catching
+   the surface. Excludes .hero, which already spends ::before on its rail. */
+.card:not(.hero) {
+  position: relative;
+}
+.card:not(.hero)::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+:root[data-theme='light'] .card:not(.hero)::before {
+  background: linear-gradient(90deg, transparent, rgba(15, 23, 42, 0.07), transparent);
+}
+
+/* ---- motion: hero breathes, rail pulses ---- */
+@keyframes pf-breathe {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+@keyframes pf-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.hero::before { animation: pf-breathe 6s ease-in-out infinite; }
+.hero::after {                       /* travelling sheen across the gradient */
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 32%,
+    color-mix(in srgb, var(--a) 12%, transparent) 50%,
+    transparent 68%
+  );
+  animation: pf-sheen 9s var(--ease) infinite;
+}
+@keyframes pf-sheen {
+  0%, 100% { transform: translateX(-60%); }
+  50% { transform: translateX(60%); }
+}
+
+/* ---- cards catch a little accent light on hover ---- */
+a.card:hover, button.card:hover, .card.click:hover {
+  border-color: color-mix(in srgb, var(--a) 34%, var(--b));
+  box-shadow: var(--sh-lift), 0 0 0 1px color-mix(in srgb, var(--a) 16%, transparent);
+}
+
+@media (max-width: 1080px) {
+  /* stacked: the artwork is the first thing to go, it costs the most height
+     and says the least once the form is the only thing on screen */
+  .lg-art { display: none; }
+  .lg-foot { margin-top: var(--s5); }
+}
+
 @media (max-width: 800px) {
   .hero { padding: var(--s6) var(--s5); }
   .ni.on::before, .ni.active::before, .ni[aria-current='page']::before { left: -8px; }
   .page { overflow-x: clip; }
+  /* iOS Safari zooms the viewport when focusing any field whose computed
+     font-size is under 16px. --fs-sm is 14px, so without this every form
+     control triggers a zoom jump on mobile. */
+  input, select, textarea { font-size: 16px; }
+  /* smaller field, fewer full-viewport layers to composite */
+  .bgfield::before, .bgfield::after, .bgfield > i { width: 44vmax; height: 44vmax; opacity: 0.8; }
+  .lg-split { border-radius: 18px; }
+  .lg-form { padding: var(--s7) var(--s6); }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .main .page, .toast, .dialog { animation: none; }
   .card, .btn, .bar > * { transition: none; }
+  /* motion is decoration here — freeze every loop */
+  .bgfield::before, .bgfield::after, .bgfield > i,
+  .hero::before, .hero::after,
+  .lg-art-layer span { animation: none; }
+  .btn.p:hover:not(:disabled) { transform: none; }
+  /* the carousel stops advancing but the tabs still work on click */
+  .lg-art-layer, .lg-rot span, .lg-dot { transition: none; }
 }
