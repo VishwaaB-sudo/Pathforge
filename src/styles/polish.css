@@ -1,0 +1,178 @@
+/* ============================================================
+   PATHFORGE — visual polish layer (loaded after index.css)
+   Token-driven, so light/dark themes inherit automatically.
+   No class names, routes or behaviour changed.
+   ============================================================ */
+
+:root {
+  --r-lg: 12px;
+  --sh-1: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --sh-lift: 0 10px 24px -14px rgba(15, 23, 42, 0.22), 0 1px 2px rgba(15, 23, 42, 0.05);
+  --a-line: color-mix(in srgb, var(--a) 28%, var(--b));
+  --a-wash: color-mix(in srgb, var(--a) 7%, var(--s));
+  font-feature-settings: 'cv11', 'ss01', 'tnum' 0;
+}
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+/* ---- typography: stronger hierarchy ---- */
+h1, h2, h3 { letter-spacing: -0.015em; }
+.page h1, .page-head h1 { font-weight: 700; letter-spacing: -0.022em; }
+.section-head h3, .sec-head h3 {
+  font-size: var(--fs-md); font-weight: 650; color: var(--t);
+}
+.mu, .hint { color: var(--m); }
+.eyebrow {
+  font-size: 11px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--a);
+}
+.tnum, .met b, .hero b { font-variant-numeric: tabular-nums; }
+
+/* ---- cards: one coherent surface ---- */
+.card {
+  border: 1px solid var(--b); border-radius: var(--r-lg); background: var(--s);
+  box-shadow: var(--sh-1);
+  transition: border-color var(--fast) var(--ease), box-shadow var(--med) var(--ease),
+    transform var(--med) var(--ease);
+}
+a.card:hover, button.card:hover, .card.click:hover {
+  border-color: var(--b-strong); box-shadow: var(--sh-lift); transform: translateY(-1px);
+}
+
+/* ---- the recommended action: strongest element on the page ---- */
+.hero {
+  position: relative; overflow: hidden; padding: var(--s7) var(--s7) var(--s6);
+  border: 1px solid var(--a-line); border-radius: 14px;
+  background:
+    radial-gradient(125% 155% at 6% -12%, color-mix(in srgb, var(--a) 15%, var(--s)) 0%, transparent 62%),
+    linear-gradient(140deg,
+      color-mix(in srgb, var(--a) 9%, var(--s)) 0%,
+      color-mix(in srgb, var(--a) 2%, var(--s)) 48%,
+      var(--s) 82%);
+  box-shadow: var(--sh-lift);
+}
+.hero::before {            /* identity accent rail */
+  content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--a);
+}
+.hero:hover { transform: none; }
+.hero h2 { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -0.02em; max-width: 34ch; }
+.hero .mu { font-size: var(--fs-base); max-width: 60ch; }
+.hero .btn.p { padding: 11px 20px; font-size: var(--fs-base); }
+.hero .btn.p .cta-arrow { transition: transform var(--fast) var(--ease); }
+.hero .btn.p:hover .cta-arrow { transform: translateX(3px); }
+
+/* ---- journey: Diagnose → Recover → Practice → Apply → Verify → Reassess ---- */
+.cj { gap: 0; margin: var(--s5) 0 var(--s5); position: relative; }
+.cj-dot { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--f); }
+.cj-dot i { transition: background var(--med) var(--ease), box-shadow var(--med) var(--ease); }
+.cj-dot.done { color: var(--ok); }
+.cj-dot.on { color: var(--a); }
+.cj-dot.on i { box-shadow: 0 0 0 4px color-mix(in srgb, var(--a) 18%, transparent); }
+.cj-tag {
+  display: block; margin: calc(var(--s2) * -1) 0 var(--s5); font-size: var(--fs-xs);
+  color: var(--f); letter-spacing: 0.02em;
+}
+.cj-tag b { color: var(--t-2); font-weight: 600; }
+
+/* ---- metrics ---- */
+.mets.strip {
+  border: 1px solid var(--b); border-radius: var(--r-lg); background: var(--s); box-shadow: var(--sh-1);
+  overflow: hidden;
+}
+.met .mu { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--f); }
+.met b { font-size: var(--fs-metric); font-weight: 700; letter-spacing: -0.02em; color: var(--t); }
+.mets:not(.strip) .met {
+  border: 1px solid var(--b); border-radius: var(--r-lg); background: var(--s); box-shadow: var(--sh-1);
+  transition: border-color var(--fast) var(--ease), box-shadow var(--med) var(--ease);
+}
+.mets:not(.strip) .met:hover { border-color: var(--b-strong); box-shadow: var(--sh-lift); }
+
+/* ---- progress bars ---- */
+.bar { height: 8px; border-radius: 99px; background: var(--s-3); overflow: hidden; }
+.bar > *, .bar i, .bar span {
+  border-radius: 99px; transition: width 600ms var(--ease);
+}
+.dbar-track { border-radius: 99px; }
+
+/* ---- sidebar ---- */
+.side, aside {
+  background: var(--s); border-right: 1px solid var(--b);
+}
+.brand { padding: var(--s5) var(--s5) var(--s4); gap: var(--s3); }
+.brand-text { font-weight: 700; letter-spacing: -0.02em; }
+.ni {
+  position: relative; border-radius: var(--r-md); font-weight: 500; color: var(--m);
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+.ni:hover { background: var(--s-3); color: var(--t); }
+.ni.on, .ni.active, .ni[aria-current='page'] {
+  background: var(--a-soft); color: var(--a); font-weight: 600;
+}
+.ni.on::before, .ni.active::before, .ni[aria-current='page']::before {
+  content: ''; position: absolute; left: -10px; top: 8px; bottom: 8px; width: 3px;
+  border-radius: 0 3px 3px 0; background: var(--a);
+}
+.nav-ico { opacity: 0.85; }
+.side-user { border-top: 1px solid var(--b); }
+
+/* ---- topbar ---- */
+.top {
+  background: color-mix(in srgb, var(--s) 92%, transparent);
+  backdrop-filter: saturate(1.4) blur(6px);
+  border-bottom: 1px solid var(--b);
+}
+.icon-btn { border-radius: var(--r-md); transition: background var(--fast) var(--ease), color var(--fast) var(--ease); }
+.icon-btn:hover { background: var(--s-3); }
+
+/* ---- buttons: primary / secondary / tertiary / destructive ---- */
+.btn {
+  border-radius: var(--r-md); font-weight: 600;
+  transition: background var(--fast) var(--ease), border-color var(--fast) var(--ease),
+    box-shadow var(--fast) var(--ease), transform 80ms var(--ease);
+}
+.btn:active:not(:disabled) { transform: translateY(1px) scale(0.99); }
+.btn.p { box-shadow: 0 1px 2px rgba(15, 118, 110, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.14); }
+.btn.p:hover:not(:disabled) { box-shadow: 0 6px 14px -8px rgba(15, 118, 110, 0.7); }
+.btn:focus-visible, .ni:focus-visible, .icon-btn:focus-visible, a:focus-visible { outline: none; box-shadow: var(--ring); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+/* ---- tables ---- */
+table { border-collapse: separate; border-spacing: 0; width: 100%; }
+th {
+  font-size: 11px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--f); background: var(--s-2); border-bottom: 1px solid var(--b);
+}
+td { border-bottom: 1px solid var(--b-2); }
+tbody tr { transition: background var(--fast) var(--ease); }
+tbody tr:hover td { background: var(--s-2); }
+tbody tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 550; color: var(--t); }
+
+/* ---- badges ---- */
+.tag, .chip { font-weight: 600; letter-spacing: 0.01em; }
+
+/* ---- forms ---- */
+input, select, textarea { transition: border-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease); }
+input:focus-visible, select:focus-visible, textarea:focus-visible { border-color: var(--a); box-shadow: var(--ring); outline: none; }
+
+/* ---- empty states: say what happened + what to do ---- */
+.empty {
+  border: 1px dashed var(--b-strong); border-radius: var(--r-lg); background: var(--s-2);
+  padding: var(--s8) var(--s6); text-align: center; color: var(--m);
+}
+
+/* ---- motion: toast, dialog, page ---- */
+@keyframes pf-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes pf-pop { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+.main .page { animation: pf-rise var(--med) var(--ease) both; }
+.toast { animation: pf-rise var(--med) var(--ease) both; box-shadow: var(--sh-pop); }
+.dialog { animation: pf-pop var(--med) var(--ease) both; border-radius: 14px; }
+
+@media (max-width: 800px) {
+  .hero { padding: var(--s6) var(--s5); }
+  .ni.on::before, .ni.active::before, .ni[aria-current='page']::before { left: -8px; }
+  .page { overflow-x: clip; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .main .page, .toast, .dialog { animation: none; }
+  .card, .btn, .bar > * { transition: none; }
+}
