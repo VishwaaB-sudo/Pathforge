@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { DEFAULT_SUBJECT } from '@/config/subjects';
 
 const UiContext = createContext(null);
 
@@ -8,8 +9,12 @@ export function UiProvider({ children }) {
   const [chat, setChat] = useState([]);
   const [toastState, setToastState] = useState({ msg: '', show: false });
   const [confirmState, setConfirmState] = useState(null);
+  const [subject, setSubject] = useState(DEFAULT_SUBJECT);
+  // the open diagnostic picker: { kind } while shown
+  const [pick, setPick] = useState(null);
   const timer = useRef();
   const resolver = useRef(null);
+  const pickResolver = useRef(null);
 
   const toast = useCallback((msg) => {
     setToastState({ msg, show: true });
@@ -37,6 +42,27 @@ export function UiProvider({ children }) {
     if (resolve) resolve(value);
   }, []);
 
+  /**
+   * Asks which subject and concept to diagnose before a run starts.
+   * Resolves `{ subject, concept }` (concept may be null for "whole subject"),
+   * or null when the student cancels.
+   */
+  const askScope = useCallback(
+    (kind) =>
+      new Promise((resolve) => {
+        pickResolver.current = resolve;
+        setPick({ kind });
+      }),
+    [],
+  );
+
+  const closePick = useCallback((scope) => {
+    setPick(null);
+    const resolve = pickResolver.current;
+    pickResolver.current = null;
+    if (resolve) resolve(scope);
+  }, []);
+
   const value = useMemo(
     () => ({
       run,
@@ -48,8 +74,25 @@ export function UiProvider({ children }) {
       confirmState,
       askConfirm,
       closeConfirm,
+      subject,
+      setSubject,
+      pick,
+      askScope,
+      closePick,
     }),
-    [run, chat, toast, toastState, confirmState, askConfirm, closeConfirm],
+    [
+      run,
+      chat,
+      toast,
+      toastState,
+      confirmState,
+      askConfirm,
+      closeConfirm,
+      subject,
+      pick,
+      askScope,
+      closePick,
+    ],
   );
   return <UiContext.Provider value={value}>{children}</UiContext.Provider>;
 }

@@ -22,7 +22,7 @@ const Section = ({ title, action, children }) => (
 export default function StudentDashboard() {
   const { S, user } = useApp();
   const { me, status, nextAct, journey, rationale } = useSelectors();
-  const { startRun } = useRunLauncher();
+  const { diagnose } = useRunLauncher();
   const navigate = useNavigate();
 
   const sc = latest(me) || {};
@@ -63,7 +63,7 @@ export default function StudentDashboard() {
         <span className="cj-tag">
           <b>From what you study</b> → to what you can do
         </span>
-        <button className="btn p" onClick={() => (n.run ? startRun(n.run) : navigate(n.to))}>
+        <button className="btn p" onClick={() => (n.run ? diagnose(n.run) : navigate(n.to))}>
           {n.b}
           <span className="cta-arrow" aria-hidden="true">
             →

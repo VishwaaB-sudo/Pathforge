@@ -22,7 +22,7 @@ const SUBTIMES = ['5 min', '5 min', '10 min', '20 min', '10 min'];
 export default function Recovery() {
   const { S, update } = useApp();
   const { me, plan, rationale, nm, gap, taskFor, mySub, reassessReady } = useSelectors();
-  const { startRun } = useRunLauncher();
+  const { startRun, diagnose } = useRunLauncher();
   const navigate = useNavigate();
 
   const g = gap();
@@ -83,7 +83,7 @@ export default function Recovery() {
     steps[4].lock ? (
       <p className="mu">Unlocks after faculty verifies your applied task.</p>
     ) : (
-      <button className="btn p" onClick={() => startRun('post')}>
+      <button className="btn p" onClick={() => diagnose('post')}>
         Start Reassessment
       </button>
     ),

@@ -904,6 +904,13 @@ textarea:disabled {
   color: var(--m);
   cursor: not-allowed;
 }
+/* The open dropdown list is painted by the browser, not by us. Left alone it
+   falls back to a plain white list while the text keeps the theme colour —
+   white on white. Setting both on <option> makes the list follow the theme. */
+select option {
+  background: var(--s);
+  color: var(--t);
+}
 input[type='checkbox'],
 input[type='radio'] {
   width: auto;

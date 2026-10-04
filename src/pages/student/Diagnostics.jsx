@@ -6,7 +6,7 @@ import PageHeader from '@/components/ui/PageHeader';
 
 export default function Diagnostics() {
   const { me, qm, reassessReady } = useSelectors();
-  const { startRun } = useRunLauncher();
+  const { diagnose } = useRunLauncher();
   const navigate = useNavigate();
   const ready = reassessReady();
 
@@ -28,7 +28,7 @@ export default function Diagnostics() {
           ) : (
             <>
               <p className="mu">{qm('pre')} · one at a time</p>
-              <button className="btn p" onClick={() => startRun('pre')}>
+              <button className="btn p" onClick={() => diagnose('pre')}>
                 Start Diagnostic
               </button>
             </>
@@ -48,7 +48,7 @@ export default function Diagnostics() {
           ) : ready && me.pre ? (
             <>
               <p className="mu">Your task is verified. You are ready.</p>
-              <button className="btn p" onClick={() => startRun('post')}>
+              <button className="btn p" onClick={() => diagnose('post')}>
                 Start Reassessment
               </button>
             </>

@@ -9,7 +9,12 @@ export function loadState() {
   } catch {
     s = null;
   }
-  return s || seed();
+  if (!s) return seed();
+  // Progress is kept between visits, but the session is not: every page load
+  // starts at the sign-in screen instead of dropping straight into a workspace.
+  s.role = null;
+  s.user = null;
+  return s;
 }
 
 export function saveState(s) {

@@ -21,7 +21,7 @@ export default function AdminDashboard() {
         </div>
         <div className="met">
           <span className="mu sm">Applied tasks</span>
-          <b>1</b>
+          <b>{S.tasks.length}</b>
         </div>
       </div>
     </>

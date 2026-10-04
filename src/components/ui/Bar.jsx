@@ -8,7 +8,7 @@ export default function Bar({ value, label }) {
       aria-valuemax={100}
       aria-label={label}
     >
-      <i style={{ width: `${value}%` }} />
+      <i aria-hidden="true" style={{ width: `${value}%` }} />
     </div>
   );
 }

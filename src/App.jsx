@@ -7,6 +7,7 @@ import Consent from '@/pages/auth/Consent';
 import AppShell from '@/components/layout/AppShell';
 import Toast from '@/components/ui/Toast';
 import Dialog from '@/components/ui/Dialog';
+import DiagnosticPicker from '@/components/ui/DiagnosticPicker';
 
 export default function App() {
   const { S, role } = useApp();
@@ -36,6 +37,7 @@ export default function App() {
       <div className="scrim" onClick={() => setOpen(false)} />
       <Toast />
       <Dialog />
+      <DiagnosticPicker />
     </div>
   );
 }

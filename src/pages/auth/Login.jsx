@@ -14,7 +14,9 @@ const SLIDES = [
   { line: 'Real evidence, not just a score.', motif: 'proof' },
 ];
 
-const DWELL = 4600;
+/* How long each slide holds before rotating. Kept brisk so the panel never
+   feels stuck on one line. */
+const DWELL = 1600;
 
 /* Line drawings overlaid on the artwork — abstract, and tied to the slide.
    Stroke only, so they read as drawing rather than as filled shapes. */

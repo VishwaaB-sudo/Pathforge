@@ -1,10 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '@/context/AppContext';
+import { useUi } from '@/context/UiContext';
 import { NAV, moreLinks } from '@/config/nav';
+import { SUBJECTS, subjectLabel } from '@/config/subjects';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
 export default function Topbar({ onToggleNav }) {
   const { role, user, logout } = useApp();
+  const { subject, setSubject } = useUi();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isAdmin = role === 'admin';
@@ -42,7 +45,7 @@ export default function Topbar({ onToggleNav }) {
         </svg>
       </button>
       <nav className="crumbs" aria-label="Breadcrumb">
-        <span className="crumb-group">{here ? here.group : 'Programming Fundamentals'}</span>
+        <span className="crumb-group">{here ? here.group : 'Workspace'}</span>
         {here ? (
           <>
             <span className="crumb-sep" aria-hidden="true">
@@ -67,8 +70,18 @@ export default function Topbar({ onToggleNav }) {
       )}
       <div className="top-actions">
         {!isAdmin && (
-          <select className="crs" aria-label="Course" style={{ margin: 0 }}>
-            <option>Programming Fundamentals{role === 'faculty' ? ' · CSE-A' : ''}</option>
+          <select
+            className="crs"
+            aria-label="Subject"
+            style={{ margin: 0 }}
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          >
+            {SUBJECTS.map((s) => (
+              <option key={s.id} value={s.id}>
+                {subjectLabel(s, role)}
+              </option>
+            ))}
           </select>
         )}
         <span className="role-chip">{role}</span>

@@ -78,7 +78,9 @@ export default function Run() {
     <>
       <PageHeader
         title={title}
-        sub={`Question ${run.i + 1} of ${run.ids.length}${practice ? ` · ${nm(q.c)}` : ''}`}
+        sub={`Question ${run.i + 1} of ${run.ids.length}${
+            run.c ? ` · ${nm(run.c)}` : practice ? ` · ${nm(q.c)}` : ''
+          }`}
       />
       <div className="progress-row">
         <Bar value={pct} label="Progress" />

@@ -1,6 +1,7 @@
 // Read-only derived data. `makeSelectors(S)` binds every helper to a state snapshot.
 import { avg, ov } from './utils';
 import { getMe } from './domain';
+import { trimRun } from './quiz';
 
 /** Most recent score map for a student record (reassessment if taken, else diagnostic). */
 export const latest = (m) => m.post?.scores || m.pre?.scores || null;
@@ -25,7 +26,11 @@ export function makeSelectors(S) {
   };
   const qset = (k) =>
     S.qs.filter((q) => (k === 'pre' ? q.set === 0 || q.set === 3 : q.set === 1 || q.set === 3));
-  const qm = (k) => `${qset(k).length} questions · about ${Math.ceil(qset(k).length * 0.7)} min`;
+  // Counts a trimmed run, so the stated length matches what the student sees.
+  const qm = (k) => {
+    const n = trimRun(qset(k)).length;
+    return `${n} questions · about ${Math.ceil(n * 0.7)} min`;
+  };
 
   const errCount = (conceptId) => me.mist.filter((x) => Q(x.id)?.c === conceptId).length;
 
@@ -167,6 +172,7 @@ export function makeSelectors(S) {
         s: 'Find out which concepts to focus on',
         m: qm('pre'),
         b: 'Start Diagnostic',
+        run: 'pre',
         to: '/diag',
       };
     if (me.post)

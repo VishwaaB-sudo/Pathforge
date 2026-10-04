@@ -1,5 +1,6 @@
 import { useApp } from '@/context/AppContext';
 import { useSelectors } from '@/hooks/useSelectors';
+import { current } from '@/lib/selectors';
 import PageHeader from '@/components/ui/PageHeader';
 import DemoTag from '@/components/ui/DemoTag';
 
@@ -44,7 +45,10 @@ export default function Competencies() {
           </thead>
           <tbody>
             {rows.map((r) => {
-              const v = as.map((x) => x[r.c.id]).filter((q) => q != null);
+              // `as` holds roster rows, so the score has to be read off the row's score map
+              // (reassessment when taken, otherwise the diagnostic) — reading
+              // `x[c.id]` returned nothing and every band showed 0.
+              const v = as.map((x) => current(x)[r.c.id]).filter((q) => q != null);
               return (
                 <tr key={r.c.id}>
                   <td>{r.c.name}</td>
